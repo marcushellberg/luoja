@@ -2,7 +2,13 @@
   "name": "luoja",
   "displayName": "Luoja",
   "description": "Create new Vaadin Flow and Hilla projects",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "icon": "icon.png",
+  "publisher": "mhellber",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcushellberg/luoja"
+  },
   "engines": {
     "vscode": "^1.78.0"
   },
