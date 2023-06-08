@@ -2,7 +2,7 @@
   "name": "luoja",
   "displayName": "Luoja",
   "description": "Create new Vaadin Flow and Hilla projects",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "icon": "icon.png",
   "publisher": "mhellber",
   "repository": {
