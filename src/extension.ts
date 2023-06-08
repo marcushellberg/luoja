@@ -8,17 +8,9 @@ async function collectInput() {
   // Project name
   const projectName = await vscode.window.showInputBox({
     prompt: "Project Name",
-  });
+  }) || "app";
 
-  // Project location
-  const locationUri = await vscode.window.showOpenDialog({
-    canSelectFiles: false,
-    canSelectFolders: true,
-    canSelectMany: false,
-    title: "Select the folder to create the project in",
-  });
-  const location = locationUri ? locationUri[0].fsPath : undefined;
-
+  
   // Framework
   const framework = await vscode.window.showQuickPick(["Flow", "Hilla"], {
     placeHolder: "Select a Framework",
@@ -48,6 +40,16 @@ async function collectInput() {
   const version = await vscode.window.showQuickPick(["Latest", "Prerelease"], {
     placeHolder: "Select a Version",
   });
+
+  // Project location
+  const locationUri = await vscode.window.showOpenDialog({
+    canSelectFiles: false,
+    canSelectFolders: true,
+    canSelectMany: false,
+    title: "Select the folder to create the project in",
+    openLabel: "Create here"
+  });
+  const location = locationUri ? locationUri[0].fsPath : undefined;
 
   return {
     projectName,
