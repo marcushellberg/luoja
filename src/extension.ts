@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import axios from "axios";
 import * as AdmZip from "adm-zip";
-import * as fs from "fs";
 import { join } from "path";
 
 async function collectInput() {
@@ -10,11 +9,11 @@ async function collectInput() {
     prompt: "Project Name",
   }) || "app";
 
-  
   // Framework
   const framework = await vscode.window.showQuickPick(["Flow", "Hilla"], {
     placeHolder: "Select a Framework",
   });
+  if (!framework) return;
 
   // Frontend (only if Framework = Hilla)
   let frontend;
@@ -22,6 +21,7 @@ async function collectInput() {
     frontend = await vscode.window.showQuickPick(["React", "Lit"], {
       placeHolder: "Select a Frontend",
     });
+    if (!frontend) return;
   }
 
   // Example views
@@ -29,17 +29,21 @@ async function collectInput() {
     (await vscode.window.showQuickPick(["Yes", "No"], {
       placeHolder: "Add example views?",
     })) === "Yes";
+  if (exampleViews === undefined) return;
 
   // Authentication
   const authentication =
     (await vscode.window.showQuickPick(["Yes", "No"], {
       placeHolder: "Add authentication?",
     })) === "Yes";
+  if (!authentication === undefined) return;
 
   // Version
-  const version = await vscode.window.showQuickPick(["Latest", "Prerelease"], {
+  const version = await vscode.window.showQuickPick(["Stable", "Prerelease"], {
     placeHolder: "Select a Version",
   });
+
+  if (!version) return;
 
   // Project location
   const locationUri = await vscode.window.showOpenDialog({
@@ -50,6 +54,7 @@ async function collectInput() {
     openLabel: "Create here"
   });
   const location = locationUri ? locationUri[0].fsPath : undefined;
+  if (!location) return;
 
   return {
     projectName,
@@ -126,4 +131,4 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-export function deactivate() {}
+export function deactivate() { }
